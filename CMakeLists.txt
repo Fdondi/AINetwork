@@ -19,6 +19,8 @@ qt_add_qml_module(appAINetwork
         Main.qml
         QML_FILES NewsItem.qml
         QML_FILES aiService.js
+        SOURCES NewsFetcher.h
+        SOURCES NewsFetcher.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
