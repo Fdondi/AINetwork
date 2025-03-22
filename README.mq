@@ -1,0 +1,8 @@
+Program simulate a social netwrk with AI characters. 
+
+# Running 
+For now, run from QtCreator. Release pending. 
+
+## Environment variables
+This program requires Mistral (for AI commentary) and Mediastack (for the news itself) API keys. Both have a viable free tier. 
+Remember to make available in your environment the MISTRAL_API_KEY and MEDIASTACK_API_KEY variables. 
