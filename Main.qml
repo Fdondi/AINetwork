@@ -17,6 +17,16 @@ ApplicationWindow {
         id: newsModel
     }
 
+    function refreshNews() {
+        var news = newsFetcher.getNews();
+        console.info("News: " + news);
+        var newsData = news.articles;
+        newsModel.clear();
+        for (var i = 0; i < newsData.length; i++) {
+            newsModel.append(newsData[i]);
+        }
+    }
+
     header: ToolBar {
         id: appHeader
         Row {
@@ -33,16 +43,14 @@ ApplicationWindow {
             Button {
                 text: "Refresh"
                 onClicked: {
-                    var news = newsFetcher.getNews();
-                    console.info("News: " + news)
-                    var newsData = news.articles
-                    newsModel.clear();
-                    for (var i = 0; i < newsData.length; i++) {
-                        newsModel.append(newsData[i]);
-                    }
+                    refreshNews();
                 }
             }
         }
+    }
+
+    Component.onCompleted: {
+        refreshNews();
     }
 
     ListView {
