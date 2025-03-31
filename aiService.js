@@ -65,8 +65,10 @@ function callAI(params, timer, mistralApiKey, callback){
     }
 
 
-function fetchAICommentary(newsTitle, agentType, timer, mistralApiKey, callback) {
+function fetchAICommentary(newsData, agentType, timer, mistralApiKey, callback) {
     var modelName = "mistral-tiny"; // or "mistral-small", "mistral-medium" depending on your needs
+    var content = `Provide a tweet on this:\nTitle:${newsData.title}\ndescription:${newsData.description}\ncontent:${newsData.content}`
+    console.log("Message: " + content)
     var messages = [
                 {
                     role: "system",
@@ -74,7 +76,7 @@ function fetchAICommentary(newsTitle, agentType, timer, mistralApiKey, callback)
                 },
                 {
                     role: "user",
-                    content: `Provide a tweet on this title: ${newsTitle}`
+                    content: content
                 }
             ];
     var params = JSON.stringify({

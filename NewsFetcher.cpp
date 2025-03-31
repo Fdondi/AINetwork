@@ -11,11 +11,11 @@
 #include <QUrl>
 #include <QDateTime>
 
-NewsFetcher::NewsFetcher(QObject *parent) : QObject(parent), m_cacheFilePath("cache") {
+NewsFetcher::NewsFetcher(QObject *parent) : QObject(parent), m_cacheFilePath("news_cache") {
     // Read the Mediastack API key from environment
-    QByteArray key = qgetenv("MEDIASTACK_API_KEY");
+    QByteArray key = qgetenv("GNEWS_API_KEY");
     if (key.isEmpty()) {
-        qFatal() << "Warning: MEDIASTACK_API_KEY environment variable is not set!";
+        qFatal() << "Warning: GNEWS_API_KEY environment variable is not set!";
     } else {
         m_apiKey = QString::fromUtf8(key);
     }
@@ -80,7 +80,7 @@ QJsonDocument NewsFetcher::readFromCache() {
 QJsonDocument NewsFetcher::fetchNewsFromAPI() {
     // Compose your API URL. Depending on your Mediastack settings, you might
     // include parameters like access_key, limit, and sort.
-    QString apiUrl = QString("http://api.mediastack.com/v1/news?access_key=%1&limit=5").arg(m_apiKey);
+    QString apiUrl = QString("https://gnews.io/api/v4/top-headlines?category=general&lang=en&max=10&apikey=%1").arg(m_apiKey);
     QUrl url(apiUrl);
     QNetworkRequest request(url);
 

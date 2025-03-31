@@ -14,7 +14,7 @@ Rectangle {
     anchors.horizontalCenter: listHorizontalCenter
     anchors.margins: 8
 
-    property string title: ""
+    property var dataJson: { "title": "Not found" }
     property var agentTypes: ["ProGovernment", "Skeptical", "YouthVoice", "SpaceEnthusiast"]
 
     Column {
@@ -25,9 +25,22 @@ Rectangle {
         width: parent.width
 
         Text {
-            text: newsItem.title
+            text: newsItem.dataJson.title
             font.bold: true
             font.pointSize: 16
+            wrapMode: Text.Wrap
+        }
+
+        Text {
+            text: newsItem.dataJson.description
+            font.pointSize: 9
+            wrapMode: Text.Wrap
+            color: "red"
+        }
+
+        Text {
+            text: newsItem.dataJson.content
+            font.pointSize: 11
             wrapMode: Text.Wrap
         }
 
@@ -74,7 +87,7 @@ Rectangle {
 
                 Component.onCompleted: {
                     AIService.fetchAICommentary(
-                        newsItem.title,
+                        newsItem.dataJson,
                         modelData,
                         retryTimer,
                         mistralApiKey,

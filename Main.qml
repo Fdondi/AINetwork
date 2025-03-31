@@ -35,10 +35,10 @@ ApplicationWindow {
                 onClicked: {
                     var news = newsFetcher.getNews();
                     console.info("News: " + news)
-                    var newsData = news.data
+                    var newsData = news.articles
                     newsModel.clear();
                     for (var i = 0; i < newsData.length; i++) {
-                        newsModel.append({ title: newsData[i].title });
+                        newsModel.append(newsData[i]);
                     }
                 }
             }
@@ -56,7 +56,7 @@ ApplicationWindow {
         }
         model: newsModel
         delegate: NewsItem {
-            title: model.title
+            dataJson: model
             listViewWidth: newsListView.width // Pass the ListView width
             listHorizontalCenter: newsListView.horizontalCenter
         }
