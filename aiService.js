@@ -89,3 +89,12 @@ function fetchAICommentary(newsData, agentType, timer, mistralApiKey, callback) 
     timer.currentCallback = callback;
     callAI(params, timer, mistralApiKey, callback );
 }
+
+function agentColor(agentType){
+    console.log("Color for agent: "+agentType)
+    return { "ProGovernment": "blue",
+        "Skeptical": "red",
+        "YouthVoice": "green",
+        "SpaceEnthusiast": "purple"
+    }[agentType]  || "black"
+}

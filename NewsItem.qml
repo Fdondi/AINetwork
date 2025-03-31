@@ -51,15 +51,7 @@ Rectangle {
                 id: responseText
                 width: parent.width
                 text: "Loading..."
-                color: {
-                    switch (modelData) {
-                        case "ProGovernment": return "blue";
-                        case "Skeptical": return "red";
-                        case "YouthVoice": return "green";
-                        case "SpaceEnthusiast": return "purple";
-                        default: return "black";
-                    }
-                }
+                color: AIService.agentColor(modelData)
                 font.pointSize: 12
                 wrapMode: Text.WordWrap
                 elide: Text.ElideNone
