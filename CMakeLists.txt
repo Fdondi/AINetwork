@@ -17,11 +17,16 @@ qt_add_qml_module(appAINetwork
     VERSION 1.0
     QML_FILES
         Main.qml
-        QML_FILES NewsItem.qml
-        QML_FILES aiService.js
-        SOURCES NewsFetcher.h
-        SOURCES NewsFetcher.cpp
+        NewsItem.qml
+        aiService.js
+        agentConfig.xml
+    SOURCES
+        NewsFetcher.h
+        NewsFetcher.cpp
 )
+
+# Explicitly add your own resources.qrc
+qt_add_resources(appAINetwork "resources.qrc")
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

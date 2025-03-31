@@ -64,19 +64,20 @@ function callAI(params, timer, mistralApiKey, callback){
     }
     }
 
-
-function fetchAICommentary(newsData, agentType, timer, mistralApiKey, callback) {
+function fetchAICommentary(newsData, agentName, agentDescription, timer, mistralApiKey, callback) {
     var modelName = "mistral-tiny"; // or "mistral-small", "mistral-medium" depending on your needs
-    var content = `Provide a tweet on this:\nTitle:${newsData.title}\ndescription:${newsData.description}\ncontent:${newsData.content}`
-    console.log("Message: " + content)
+    var agentStr = `You are a ${agentName}: ${agentDescription}`
+    console.log("Agetn: " + agentStr)
+    var contentStr = `Provide a tweet on this:\nTitle:${newsData.title}\ndescription:${newsData.description}\ncontent:${newsData.content}`
+    console.log("Message: " + contentStr)
     var messages = [
                 {
                     role: "system",
-                    content: `You are a ${agentType}`
+                    content: agentStr
                 },
                 {
                     role: "user",
-                    content: content
+                    content: contentStr
                 }
             ];
     var params = JSON.stringify({
@@ -88,13 +89,4 @@ function fetchAICommentary(newsData, agentType, timer, mistralApiKey, callback) 
     timer.currentParams = params;
     timer.currentCallback = callback;
     callAI(params, timer, mistralApiKey, callback );
-}
-
-function agentColor(agentType){
-    console.log("Color for agent: "+agentType)
-    return { "ProGovernment": "blue",
-        "Skeptical": "red",
-        "YouthVoice": "green",
-        "SpaceEnthusiast": "purple"
-    }[agentType]  || "black"
 }

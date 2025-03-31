@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import "aiService.js" as AIService
+import QtQml.XmlListModel
 
 Rectangle {
     id: newsItem
@@ -15,7 +16,6 @@ Rectangle {
     anchors.margins: 8
 
     property var dataJson: { "title": "Not found" }
-    property var agentTypes: ["ProGovernment", "Skeptical", "YouthVoice", "SpaceEnthusiast"]
 
     Column {
         id: newsColumn
@@ -44,14 +44,24 @@ Rectangle {
             wrapMode: Text.Wrap
         }
 
+        XmlListModel {
+            id: agentModel
+            source: "qrc:/AINetwork/agentConfig.xml"
+            query: "/agents/agent"
+
+            XmlListModelRole { name: "agentName"; elementName: "name" }
+            XmlListModelRole { name: "agentColor"; elementName: "color" }
+            XmlListModelRole { name: "agentDescription"; elementName: "description" }
+        }
+
         Repeater {
             id: repeater
-            model: newsItem.agentTypes
+            model: agentModel
             delegate: Text {
                 id: responseText
                 width: parent.width
                 text: "Loading..."
-                color: AIService.agentColor(modelData)
+                color: agentColor
                 font.pointSize: 12
                 wrapMode: Text.WordWrap
                 elide: Text.ElideNone
@@ -80,7 +90,8 @@ Rectangle {
                 Component.onCompleted: {
                     AIService.fetchAICommentary(
                         newsItem.dataJson,
-                        modelData,
+                        agentName,
+                        agentDescription,
                         retryTimer,
                         mistralApiKey,
                         function(commentary) {
